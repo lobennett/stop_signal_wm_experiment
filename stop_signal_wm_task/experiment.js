@@ -1,5 +1,5 @@
 // window.dataSync = function() {
-//   console.log('sunjae got into berkeley woo') 
+//   console.log('sunjae got into berkeley woo')
 //  };
 
 /* ************************************ */
@@ -116,8 +116,12 @@ const getFeedback =
     </font></p></div></div>`;
 
 var createTrialTypes = function (numTrialsPerBlock) {
-  var uniqueCombos = stopSignalsConditions.length * shapes.length * possibleMemoryLengths.length * possibleConditions.length;
-  
+  var uniqueCombos =
+    stopSignalsConditions.length *
+    shapes.length *
+    possibleMemoryLengths.length *
+    possibleConditions.length;
+
   var stims = [];
   for (var x = 0; x < stopSignalsConditions.length; x++) {
     for (var j = 0; j < shapes.length; j++) {
@@ -129,7 +133,7 @@ var createTrialTypes = function (numTrialsPerBlock) {
             stop_condition: stopSignalsConditions[x],
             memoryStimLength: possibleMemoryLengths[y],
             memory_condition: possibleConditions[z],
-            memory_correct_response: possibleResponses[z+2][1]
+            memory_correct_response: possibleResponses[z + 2][1],
           };
           stims.push(stim);
         }
@@ -142,13 +146,13 @@ var createTrialTypes = function (numTrialsPerBlock) {
 };
 
 var createGoTrialTypes = function (goPracticeLen) {
-  var uniqueCombos = shapes.length
+  var uniqueCombos = shapes.length;
   var goStims = [];
   for (var j = 0; j < shapes.length; j++) {
     stim = {
       stopStim: shapes[j],
       stop_correct_response: possibleResponses[j][1],
-      stop_condition: "go"
+      stop_condition: 'go',
     };
     goStims.push(stim);
   }
@@ -165,7 +169,7 @@ var createPhase1TrialTypes = function (phase1PracticeLen) {
       stim = {
         memoryStimLength: possibleMemoryLengths[y],
         memory_condition: possibleConditions[z],
-        memory_correct_response: possibleResponses[z+2][1]
+        memory_correct_response: possibleResponses[z + 2][1],
       };
       phase1Stims.push(stim);
     }
@@ -183,7 +187,7 @@ var createPhase2TrialTypes = function (phase2PracticeLen) {
       stim = {
         stopStim: shapes[j],
         stop_correct_response: possibleResponses[j][1],
-        stop_condition: stopSignalsConditions[x]
+        stop_condition: stopSignalsConditions[x],
       };
       phase2Stims.push(stim);
     }
@@ -194,38 +198,40 @@ var createPhase2TrialTypes = function (phase2PracticeLen) {
 };
 
 var createPracticeTrialTypes = function (practiceLen) {
-  var uniqueCombos = stopSignalsConditions.length * possibleMemoryLengths.length * possibleConditions.length;
+  var uniqueCombos =
+    stopSignalsConditions.length *
+    possibleMemoryLengths.length *
+    possibleConditions.length;
   var stims = [];
   for (var x = 0; x < stopSignalsConditions.length; x++) {
-      for (var y = 0; y < possibleMemoryLengths.length; y++) {
-        for (var z = 0; z < possibleConditions.length; z++) {
-          stopStim = shapes[Math.floor(Math.random() * shapes.length)];
-          if (stopStim === "circle") {
-            stop_correct_response = possibleResponses[0][1];
-          }
-          else {
-            stop_correct_response = possibleResponses[1][1];
-          };
-          stim = {
-            //randomly choose shape
-            stopStim: stopStim,
-            stop_correct_response: stop_correct_response,
-            stop_condition: stopSignalsConditions[x],
-            memoryStimLength: possibleMemoryLengths[y],
-            memory_condition: possibleConditions[z],
-            memory_correct_response: possibleResponses[z+2][1]
-          };
-          stims.push(stim);
+    for (var y = 0; y < possibleMemoryLengths.length; y++) {
+      for (var z = 0; z < possibleConditions.length; z++) {
+        stopStim = shapes[Math.floor(Math.random() * shapes.length)];
+        if (stopStim === 'circle') {
+          stop_correct_response = possibleResponses[0][1];
+        } else {
+          stop_correct_response = possibleResponses[1][1];
         }
+        stim = {
+          //randomly choose shape
+          stopStim: stopStim,
+          stop_correct_response: stop_correct_response,
+          stop_condition: stopSignalsConditions[x],
+          memoryStimLength: possibleMemoryLengths[y],
+          memory_condition: possibleConditions[z],
+          memory_correct_response: possibleResponses[z + 2][1],
+        };
+        stims.push(stim);
       }
     }
+  }
   var iteration = practiceLen / uniqueCombos;
   stims = jsPsych.randomization.repeat(stims, iteration);
   return stims;
 };
 
 var getStopStim = function () {
-  return preFileType + "stopSignal" + postFileType;
+  return preFileType + 'stopSignal' + postFileType;
 };
 
 var getGoStim = function () {
@@ -236,15 +242,15 @@ var getGoStim = function () {
 
   stim = {
     image:
-      "<div class = centerbox><div class = cue-text>" +
+      '<div class = centerbox><div class = cue-text>' +
       preFileType +
       shape +
       postFileType +
-      "</div></div>",
+      '</div></div>',
     data: {
       stim: shape,
       condition: condition,
-      correct_response: condition === "go" ? correct_response : null,
+      correct_response: condition === 'go' ? correct_response : null,
     },
   };
   stimData = stim.data;
@@ -259,15 +265,15 @@ var phase2GetStim = function () {
 
   stim = {
     image:
-      "<div class = centerbox><div class = cue-text>" +
+      '<div class = centerbox><div class = cue-text>' +
       preFileType +
       shape +
       postFileType +
-      "</div></div>",
+      '</div></div>',
     data: {
       stim: shape,
       condition: condition,
-      correct_response: condition === "go" ? correct_response : null,
+      correct_response: condition === 'go' ? correct_response : null,
     },
   };
 
@@ -283,15 +289,15 @@ var getStim = function () {
 
   stim = {
     image:
-      "<div class = centerbox><div class = cue-text>" +
+      '<div class = centerbox><div class = cue-text>' +
       preFileType +
       shape +
       postFileType +
-      "</div></div>",
+      '</div></div>',
     data: {
       stim: shape,
       condition: condition,
-      correct_response: condition === "go" ? correct_response : null,
+      correct_response: condition === 'go' ? correct_response : null,
     },
   };
 
@@ -302,17 +308,16 @@ var getStim = function () {
 var lastShownLetters = ''; // Global variable to store the last shown letters
 
 var getPhase1MemoryPresentationStim = function () {
-  stim = phase1Stims.shift(); 
+  stim = phase1Stims.shift();
   stimLength = stim.memoryStimLength;
   condition = stim.memory_condition;
   correct_response = stim.memory_correct_response;
 
   letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Example set of letters to choose from
   selectedLetters = '';
-  locations = ['', '', '', '', '', '']
+  locations = ['', '', '', '', '', ''];
   if (stimLength === 0) {
-  }
-  else {
+  } else {
     for (var i = 0; i < stimLength; i++) {
       var randomIndex = Math.floor(Math.random() * letters.length);
       selectedLetters += letters[randomIndex];
@@ -325,17 +330,23 @@ var getPhase1MemoryPresentationStim = function () {
   } else if (stimLength === 0 && condition === 'in memory set') {
     locations = ['#', '#', '#', '#', '#', '#'];
   } else if (stimLength === 4) {
-    locations = [selectedLetters.charAt(0), '', selectedLetters.charAt(1),
-                selectedLetters.charAt(2), '', selectedLetters.charAt(3)];
+    locations = [
+      selectedLetters.charAt(0),
+      '',
+      selectedLetters.charAt(1),
+      selectedLetters.charAt(2),
+      '',
+      selectedLetters.charAt(3),
+    ];
   } else if (stimLength === 6) {
     locations = selectedLetters.split('');
   }
 
   var stimuliHTML = "<div class='stimuli-box'><div class='grid'>";
   for (var i = 0; i < locations.length; i++) {
-    stimuliHTML += "<div class='cell'>" + locations[i] + "</div>";
+    stimuliHTML += "<div class='cell'>" + locations[i] + '</div>';
   }
-  stimuliHTML += "</div></div>";
+  stimuliHTML += '</div></div>';
 
   // if (stimLength === 0) {
   //   stimuliHTML = "<div class='centerbox'><div class='letter-text'>" + "*" + "</div></div>";
@@ -348,25 +359,24 @@ var getPhase1MemoryPresentationStim = function () {
       stimLength: stimLength,
       condition: condition,
       selectedLetters: selectedLetters,
-      correct_response: correct_response
-    }
+      correct_response: correct_response,
+    },
   };
   stimData = stim.data;
   return stim.stimuli;
 };
 
 var getMemoryPresentationStim = function () {
-  stim = stims[0]; 
+  stim = stims[0];
   stimLength = stim.memoryStimLength;
   condition = stim.memory_condition;
   correct_response = stim.memory_correct_response;
 
   letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Example set of letters to choose from
   selectedLetters = '';
-  locations = ['', '', '', '', '', '']
+  locations = ['', '', '', '', '', ''];
   if (stimLength === 0) {
-  }
-  else {
+  } else {
     for (var i = 0; i < stimLength; i++) {
       var randomIndex = Math.floor(Math.random() * letters.length);
       selectedLetters += letters[randomIndex];
@@ -379,17 +389,23 @@ var getMemoryPresentationStim = function () {
   } else if (stimLength === 0 && condition === 'in memory set') {
     locations = ['#', '#', '#', '#', '#', '#'];
   } else if (stimLength === 4) {
-    locations = [selectedLetters.charAt(0), '', selectedLetters.charAt(1),
-                selectedLetters.charAt(2), '', selectedLetters.charAt(3)];
+    locations = [
+      selectedLetters.charAt(0),
+      '',
+      selectedLetters.charAt(1),
+      selectedLetters.charAt(2),
+      '',
+      selectedLetters.charAt(3),
+    ];
   } else if (stimLength === 6) {
     locations = selectedLetters.split('');
   }
 
   var stimuliHTML = "<div class='stimuli-box'><div class='grid'>";
   for (var i = 0; i < locations.length; i++) {
-    stimuliHTML += "<div class='cell'>" + locations[i] + "</div>";
+    stimuliHTML += "<div class='cell'>" + locations[i] + '</div>';
   }
-  stimuliHTML += "</div></div>";
+  stimuliHTML += '</div></div>';
 
   // if (stimLength === 0) {
   //   stimuliHTML = "<div class='centerbox'><div class='letter-text'>" + "*" + "</div></div>";
@@ -402,16 +418,14 @@ var getMemoryPresentationStim = function () {
       stimLength: stimLength,
       condition: condition,
       selectedLetters: selectedLetters,
-      correct_response: correct_response
-    }
+      correct_response: correct_response,
+    },
   };
   stimData = stim.data;
   return stim.stimuli;
 };
 
-
 var getMemoryRecognitionStim = function () {
-
   var stimLength = lastMemoryPresentationStimLength;
   var correct_response = lastMemoryPresentationCorrectResponse;
   var condition = lastMemoryPresentationCondition;
@@ -425,7 +439,9 @@ var getMemoryRecognitionStim = function () {
     recognitionLetter = lastShownLetters[randomIndex];
   } else if (condition === 'not in memory set' && stimLength > 0) {
     // Filter out the shown letters from the full alphabet and randomly select one of the remaining letters
-    var remainingLetters = letters.split('').filter(letter => !lastShownLetters.includes(letter));
+    var remainingLetters = letters
+      .split('')
+      .filter((letter) => !lastShownLetters.includes(letter));
     if (remainingLetters.length > 0) {
       var randomIndex = Math.floor(Math.random() * remainingLetters.length);
       recognitionLetter = remainingLetters[randomIndex];
@@ -433,25 +449,29 @@ var getMemoryRecognitionStim = function () {
   } else if (stimLength === 0) {
     recognitionLetter = '()';
   }
-  
+
   var stim = {
-    stimuli: "<div class='centerbox'><div class='letter-text'>" + recognitionLetter + "</div></div>",
+    stimuli:
+      "<div class='centerbox'><div class='letter-text'>" +
+      recognitionLetter +
+      '</div></div>',
     data: {
       stim: recognitionLetter,
       stimLength: stimLength,
       condition: stimLength === 0 ? 'no memory set' : condition,
       recognitionLetter: recognitionLetter,
-      correct_response: stimLength === 0 ? possibleResponses[3][1] : correct_response
-    }
+      correct_response:
+        stimLength === 0 ? possibleResponses[3][1] : correct_response,
+    },
   };
   stimData = stim.data;
   return stim.stimuli;
 };
 
 const getCurrBlockNum = () =>
-  getExpStage() === "practice" ? practiceCount : testCount;
+  getExpStage() === 'practice' ? practiceCount : testCount;
 
-var getPhase2SSD = () => SSD
+var getPhase2SSD = () => SSD;
 
 var getSSD = function (presentationData) {
   if (presentationData.stimLength == 0) {
@@ -461,7 +481,7 @@ var getSSD = function (presentationData) {
   } else if (presentationData.stimLength == 6) {
     return SSD_6;
   }
-}
+};
 
 const getCondition = () => condition;
 
@@ -476,16 +496,16 @@ var appendGoTrialData = function (data) {
   data.stim = stimData.stim;
   data.current_trial = currentTrial;
   data.condition = stimData.condition;
-  data.block_num = getExpStage() == "practice" ? practiceCount : testCount;
+  data.block_num = getExpStage() == 'practice' ? practiceCount : testCount;
   data.correct_response = stimData.correct_response;
-}
+};
 
 var appendMemoryPresentationData = function (data) {
   data.stim = stimData.stim;
   data.current_trial = currentTrial;
   data.stimLength = stimData.stimLength;
-  data.condition = "Presentation";
-  data.block_num = getExpStage() == "practice" ? practiceCount : testCount;
+  data.condition = 'Presentation';
+  data.block_num = getExpStage() == 'practice' ? practiceCount : testCount;
   data.correct_response = null;
 
   lastMemoryPresentationStimulus = stimData.stim;
@@ -500,9 +520,9 @@ var appendPhase2StopData = function (data) {
   data.correct_response = correct_response;
   data.current_trial = currentTrial;
   data.condition = stimData.condition;
-  data.block_num = getExpStage() == "practice" ? practiceCount : testCount;
+  data.block_num = getExpStage() == 'practice' ? practiceCount : testCount;
 
-  if (data.condition == "stop") {
+  if (data.condition == 'stop') {
     data.correct_trial = data.response === null ? 1 : 0;
     if (data.response == null && SSD < maxSSD) {
       SSD += 50;
@@ -519,9 +539,9 @@ var appendStopData = function (data, presentationData) {
   data.correct_response = correct_response;
   data.current_trial = currentTrial;
   data.condition = stimData.condition;
-  data.block_num = getExpStage() == "practice" ? practiceCount : testCount;
+  data.block_num = getExpStage() == 'practice' ? practiceCount : testCount;
 
-  if (data.condition === "stop") {
+  if (data.condition === 'stop') {
     data.correct_trial = data.response === null ? 1 : 0;
     if (presentationData.stimLength === 0) {
       if (data.response == null && SSD_0 < maxSSD) {
@@ -549,12 +569,12 @@ var appendStopData = function (data, presentationData) {
 
 var appendMemoryTrialData = function (data) {
   currentTrial += 1;
-  
+
   data.stim = stimData.stim;
   data.stimLength = stimData.stimLength;
   data.condition = stimData.condition;
   data.selectedLetters = stimData.selectedLetters;
-  data.block_num = getExpStage() == "practice" ? practiceCount : testCount;
+  data.block_num = getExpStage() == 'practice' ? practiceCount : testCount;
   data.correct_response = stimData.correct_response;
   data.recognitionLetter = stimData.recognitionLetter;
   data.correct_trial = data.response === data.correct_response ? 1 : 0;
@@ -569,72 +589,72 @@ var possibleResponses;
 function getKeyMappingForTask(group_index) {
   if (Math.floor(group_index / 6) % 8 === 0) {
     possibleResponses = [
-      ["right hand index finger", ",", "comma key (,)"],
-      ["right hand middle finger", ".", "period key (.)"],
-      ["left hand index finger", "x", "X key"],
-      ["left hand middle finger", "z", "Z key"],
+      ['right hand index finger', ',', 'comma key (,)'],
+      ['right hand middle finger', '.', 'period key (.)'],
+      ['left hand index finger', 'x', 'X key'],
+      ['left hand middle finger', 'z', 'Z key'],
     ];
-  } 
+  }
   if (Math.floor(group_index / 6) % 8 === 1) {
     possibleResponses = [
-      ["right hand middle finger", ".", "period key (.)"],
-      ["right hand index finger", ",", "comma key (,)"],
-      ["left hand middle finger", "z", "Z key"],
-      ["left hand index finger", "x", "X key"],
+      ['right hand middle finger', '.', 'period key (.)'],
+      ['right hand index finger', ',', 'comma key (,)'],
+      ['left hand middle finger', 'z', 'Z key'],
+      ['left hand index finger', 'x', 'X key'],
     ];
   }
   if (Math.floor(group_index / 6) % 8 === 2) {
     possibleResponses = [
-      ["right hand index finger", ",", "comma key (,)"],
-      ["right hand middle finger", ".", "period key (.)"],
-      ["left hand middle finger", "z", "Z key"],
-      ["left hand index finger", "x", "X key"],
+      ['right hand index finger', ',', 'comma key (,)'],
+      ['right hand middle finger', '.', 'period key (.)'],
+      ['left hand middle finger', 'z', 'Z key'],
+      ['left hand index finger', 'x', 'X key'],
     ];
   }
   if (Math.floor(group_index / 6) % 8 === 3) {
     possibleResponses = [
-      ["right hand middle finger", ".", "period key (.)"],
-      ["right hand index finger", ",", "comma key (,)"],
-      ["left hand index finger", "x", "X key"],
-      ["left hand middle finger", "z", "Z key"]
+      ['right hand middle finger', '.', 'period key (.)'],
+      ['right hand index finger', ',', 'comma key (,)'],
+      ['left hand index finger', 'x', 'X key'],
+      ['left hand middle finger', 'z', 'Z key'],
     ];
   }
   if (Math.floor(group_index / 6) % 8 === 4) {
     possibleResponses = [
-      ["left hand index finger", "x", "X key"],
-      ["left hand middle finger", "z", "Z key"],
-      ["right hand index finger", ",", "comma key (,)"],
-      ["right hand middle finger", ".", "period key (.)"],
+      ['left hand index finger', 'x', 'X key'],
+      ['left hand middle finger', 'z', 'Z key'],
+      ['right hand index finger', ',', 'comma key (,)'],
+      ['right hand middle finger', '.', 'period key (.)'],
     ];
   }
   if (Math.floor(group_index / 6) % 8 === 5) {
     possibleResponses = [
-      ["left hand middle finger", "z", "Z key"],
-      ["left hand index finger", "x", "X key"],
-      ["right hand middle finger", ".", "period key (.)"],
-      ["right hand index finger", ",", "comma key (,)"],
+      ['left hand middle finger', 'z', 'Z key'],
+      ['left hand index finger', 'x', 'X key'],
+      ['right hand middle finger', '.', 'period key (.)'],
+      ['right hand index finger', ',', 'comma key (,)'],
     ];
   }
   if (Math.floor(group_index / 6) % 8 === 6) {
     possibleResponses = [
-      ["left hand index finger", "x", "X key"],
-      ["left hand middle finger", "z", "Z key"],
-      ["right hand middle finger", ".", "period key (.)"],
-      ["right hand index finger", ",", "comma key (,)"],
+      ['left hand index finger', 'x', 'X key'],
+      ['left hand middle finger', 'z', 'Z key'],
+      ['right hand middle finger', '.', 'period key (.)'],
+      ['right hand index finger', ',', 'comma key (,)'],
     ];
   }
   if (Math.floor(group_index / 6) % 8 === 7) {
     possibleResponses = [
-      ["left hand middle finger", "z", "Z key"],
-      ["left hand index finger", "x", "X key"],
-      ["right hand index finger", ",", "comma key (,)"],
-      ["right hand middle finger", ".", "period key (.)"],
+      ['left hand middle finger', 'z', 'Z key'],
+      ['left hand index finger', 'x', 'X key'],
+      ['right hand index finger', ',', 'comma key (,)'],
+      ['right hand middle finger', '.', 'period key (.)'],
     ];
   }
 }
 
 var group_index =
-  typeof window.efVars !== "undefined" ? window.efVars.group_index : 1;
+  typeof window.efVars !== 'undefined' ? window.efVars.group_index : 1;
 
 getKeyMappingForTask(group_index);
 
@@ -658,7 +678,8 @@ var feedbackInstructText = `
   <p class="center-block-text"> Press <i>enter</i> to begin.</p>
 `;
 
-var expStage = "practice";
+var practiceStage = 'go_only';
+var expStage = 'practice';
 // *: Timing
 const stimStimulusDuration = 1000;
 const stimTrialDuration = 1500;
@@ -669,7 +690,7 @@ var instructTimeThresh = 1; // /in seconds
 var runAttentionChecks = true;
 
 var practiceLen = 18; // must be divisible by shapes.length * stopSignalsConditions.length and possiblePracticeMemoryLengths.length * possibleConditions.length
-var numTrialsPerBlock = 36// must be divisible by shapes.length * stopSignalsConditions.length and possibleMemoryLengths.length * possibleConditions.length
+var numTrialsPerBlock = 36; // must be divisible by shapes.length * stopSignalsConditions.length and possibleMemoryLengths.length * possibleConditions.length
 var numTestBlocks = 12;
 var goPracticeLen = 6;
 var phase1PracticeLen = 12;
@@ -677,13 +698,12 @@ var phase2PracticeLen = 12;
 
 var practiceThresh = 2; // max number of times to repeat practice
 var accuracyThresh = 0.8;
-var practiceAccuracyThresh = 0.70;
-var practiceLetterAccuracyThresh = 0.60;
-var goCorrectPracticeThresh = 0.60;
-var goOmissionPracticeThresh = 0.40;
-var memoryCorrectPracticeThresh = 0.60;
-var memoryOmissionPracticeThresh = 0.20;
-
+var practiceAccuracyThresh = 0.7;
+var practiceLetterAccuracyThresh = 0.6;
+var goCorrectPracticeThresh = 0.6;
+var goOmissionPracticeThresh = 0.4;
+var memoryCorrectPracticeThresh = 0.6;
+var memoryOmissionPracticeThresh = 0.2;
 
 var missedResponseThresh = 0.2;
 var rtThresh = 1000;
@@ -707,38 +727,47 @@ var minStopCorrect = 0.25;
 var maxStopCorrectPractice = 1;
 var minStopCorrectPractice = 0;
 
-var stopSignalsConditions = ["go", "go", "stop"];
-var shapes = ["circle", "square"];
-var recognition = ["in memory set", "not in memory set"];
+var stopSignalsConditions = ['go', 'go', 'stop'];
+var shapes = ['circle', 'square'];
+var recognition = ['in memory set', 'not in memory set'];
 var possibleMemoryLengths = [0, 4, 6];
-var possibleConditions = ["in memory set", "not in memory set"];
+var possibleConditions = ['in memory set', 'not in memory set'];
 
 // IMAGES
 // path info
-// var pathSource = "/static/experiments/stop_signal_wm_task/images/";
-var pathSource = "/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/"
+var pathSource = '/static/experiments/stop_signal_wm_task/images/';
+// var pathSource =
+('/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/');
 var postFileType = ".png'></img>";
 var preFileType = "<img class = center src='" + pathSource;
 // append to images array to preload
-var images = [pathSource + "stopSignal" + ".png"];
+var images = [pathSource + 'stopSignal' + '.png'];
 for (i = 0; i < shapes.length; i++) {
-  images.push(pathSource + shapes[i] + ".png");
+  images.push(pathSource + shapes[i] + '.png');
 }
 
 var promptTextList = `
   <ul style="text-align:left;">
     <li>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }: comma key (,)</li>
     <li>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }: period key (.)</li>
     <li>Do not respond if a star appears.</li>
     <li>${
-      possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition[1]
+      possibleResponses[2][0] == 'left hand index finger'
+        ? recognition[0]
+        : recognition[1]
     }: X key</li>
     <li>${
-      possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+      possibleResponses[3][0] == 'left hand middle finger'
+        ? recognition[1]
+        : recognition[0]
     }: Z key</li>
   </ul>
 `;
@@ -746,10 +775,14 @@ var promptTextList = `
 var goPromptTextList = `
   <ul style="text-align:left;">
     <li>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }: comma key (,)</li>
     <li>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }: period key (.)</li>
   </ul>
 `;
@@ -757,10 +790,14 @@ var goPromptTextList = `
 var phase1PromptTextList = `
   <ul style="text-align:left;">
     <li>${
-      possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition[1]
+      possibleResponses[2][0] == 'left hand index finger'
+        ? recognition[0]
+        : recognition[1]
     }: X key</li>
     <li>${
-      possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+      possibleResponses[3][0] == 'left hand middle finger'
+        ? recognition[1]
+        : recognition[0]
     }: Z key</li>
   </ul>
 `;
@@ -768,10 +805,14 @@ var phase1PromptTextList = `
 var phase2PromptTextList = `
   <ul style="text-align:left;">
     <li>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }: comma key (,)</li>
     <li>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }: period key (.)</li>
     <li>Do not respond if a star appears.</li>
   </ul>
@@ -780,21 +821,27 @@ var phase2PromptTextList = `
 var goPromptText = `
   <div class="prompt_box">
   <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-    possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+    possibleResponses[0][0] == 'right hand index finger' ? shapes[0] : shapes[1]
   }: comma key (,)</p>
   <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-    possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+    possibleResponses[1][0] == 'right hand middle finger'
+      ? shapes[1]
+      : shapes[0]
   }: period key (.)</p>
   </div>
-  `; 
+  `;
 
-var phase1PromptText =`
+var phase1PromptText = `
   <div class="prompt_box">
   <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-    possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition[1]
+    possibleResponses[2][0] == 'left hand index finger'
+      ? recognition[0]
+      : recognition[1]
   }: X key</p>
   <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-    possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+    possibleResponses[3][0] == 'left hand middle finger'
+      ? recognition[1]
+      : recognition[0]
   }: Z key</p>
   </div>
   `;
@@ -802,35 +849,47 @@ var phase1PromptText =`
 var phase2PromptText = `
   <div class="prompt_box">
     <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }: comma key (,)</p>
     <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }: period key (.)</p>
     <p class="center-block-text" style="font-size:16px; line-height:80%;">Do not respond if a star appears.</p>
   </div>
-  `; 
+  `;
 
 var promptText = `
   <div class="prompt_box">
     <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }: comma key (,)</p>
     <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }: period key (.)</p>
     <p class="center-block-text" style="font-size:16px; line-height:80%;">Do not respond if a star appears.</p>
     <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-      possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition[1]
+      possibleResponses[2][0] == 'left hand index finger'
+        ? recognition[0]
+        : recognition[1]
     }: X key</p>
     <p class="center-block-text" style="font-size:16px; line-height:80%;">${
-      possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+      possibleResponses[3][0] == 'left hand middle finger'
+        ? recognition[1]
+        : recognition[0]
     }: Z key</p>
   </div>
 `;
 
 var speedReminder =
-  "<p class = block-text>Try to respond as quickly and accurately as possible.</p>";
+  '<p class = block-text>Try to respond as quickly and accurately as possible.</p>';
 
 var goInstruct = [
   `
@@ -847,10 +906,14 @@ var goInstruct = [
   <div class="centerbox">
     <p class="block-text">During this task, you will see shapes appear on the screen one at a time.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }</b>, press your <b>right hand index finger (comma key (,))</b>.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }</b>, press your <b>right hand middle finger (period key (.))</b>.</p>
     <p class="block-text">You should respond as quickly and accurately as possible to each shape.</p>
   </div>
@@ -860,14 +923,18 @@ var goInstruct = [
     <p class="block-text">Let's start a practice round of responding to the shapes on the screen. During practice, you will receive feedback and a reminder of the rules. These will be taken out for the test, so make sure you understand the instructions before moving on.</p>
     <p class="block-text">Try to respond as quickly and accurately as possible.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }</b>, press your <b>right hand index finger (comma key (,))</b>.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }</b>, press your <b>right hand middle finger (period key (.))</b>.</p>
   </div>
-  ` 
-]
+  `,
+];
 
 var phase2Instruct = [
   `
@@ -883,16 +950,20 @@ var phase2Instruct = [
     <p class="block-text">Now you will do a practice of the shape task with the star sometimes appearing. During practice, you will receive feedback and a reminder of the rules. These will be taken out for the test, so make sure you understand the instructions before moving on.</p>
     <p class="block-text">Try to respond as quickly and accurately as possible.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }</b>, press your <b>right hand index finger (comma key (,))</b>.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }</b>, press your <b>right hand middle finger (period key (.))</b>.</p>
     <p class="block-text">If you see the star, please try your best to <b>withhold your response</b> on that trial.</p>
     <p class="block-text">Please <b>do not</b> slow down your responses to wait for the star.</p>
   </div>
-  `
-]
+  `,
+];
 var phase1Instruct = [
   `
   <div class="centerbox">
@@ -906,16 +977,20 @@ var phase1Instruct = [
     <p class="block-text">After you complete the shape task, there will be a single letter shown on screen.</p>
     <p class="block-text">If there were 4 or 6 letters shown during the first phase, you will see a single letter.</p>
     <p class="block-text">If the single letter was <b>${
-      possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition [1]
+      possibleResponses[2][0] == 'left hand index finger'
+        ? recognition[0]
+        : recognition[1]
     }</b>, from the first phase, press your <b>left hand index finger (X key)</b>.</p>
     <p class="block-text">If the single letter was <b>${
-      possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+      possibleResponses[3][0] == 'left hand middle finger'
+        ? recognition[1]
+        : recognition[0]
     }</b> from the first phase, press your <b>left hand middle finger (Z key)</b>.</p>
   </div>
-  `, 
+  `,
   `
   <div class="centerbox">
-    <p class="block-text">Sometimes, instead of 4 or 6 letters, you may see 4 or 6 * signs on the screen. You will have no letters to remember for these trials.</p>
+    <p class="block-text">Sometimes, instead of 4 or 6 letters, you may see 4 or 6 # signs on the screen. You will have no letters to remember for these trials.</p>
     <p class="block-text">For these trials, after you complete the shape task, you will see () on the screen instead of a single letter.
     Press your <b>${possibleResponses[3][0]} (${possibleResponses[3][2]})</b> when you see ().</p>
   </div>
@@ -924,39 +999,55 @@ var phase1Instruct = [
   <div class="centerbox">
     <p class="block-text">We’ll start a practice round of the memory task only. During practice, you will receive feedback and a reminder of the rules. These will be taken out for the test, so make sure you understand the instructions before moving on.</p>
     <p class="block-text">If the single letter was <b>${
-      possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition [1]
+      possibleResponses[2][0] == 'left hand index finger'
+        ? recognition[0]
+        : recognition[1]
     }</b>, from the first phase, press your <b>left hand index finger (X key)</b>.</p>
     <p class="block-text">If the single letter was <b>${
-      possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+      possibleResponses[3][0] == 'left hand middle finger'
+        ? recognition[1]
+        : recognition[0]
     }</b> from the first phase, press your <b>left hand middle finger (Z key)</b>.</p>
-    <p class="block-text">Press your <b>${possibleResponses[3][0]} (${possibleResponses[3][2]})</b> when you see ().</p>
+    <p class="block-text">Press your <b>${possibleResponses[3][0]} (${
+    possibleResponses[3][2]
+  })</b> when you see ().</p>
     <p class="block-text">Remember to respond as quickly and accurately as possible.</p>
   </div> 
-  `
-]
+  `,
+];
 var pageInstruct = [
   `
-  <div class="centerbox">
+  <div class="large-centerbox">
     <p class="block-text">Finally, we will start a practice round of the entire task together. During practice, you will receive feedback and a reminder of the rules. These will be taken out for the test, so make sure you understand the instructions before moving on.</p>
     <p class="block-text">Try to respond as quickly and accurately as possible.</p>
 
     <p class="block-text">On each trial, you will see 4 or 6 letters or * signs. If you see letters, remember them. Then you will see a shape.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[0][0] == "right hand index finger" ? shapes[0] : shapes[1]
+      possibleResponses[0][0] == 'right hand index finger'
+        ? shapes[0]
+        : shapes[1]
     }</b>, press your <b>right hand index finger (comma key (,))</b>.</p>
     <p class="block-text">If the shape is a <b>${
-      possibleResponses[1][0] == "right hand middle finger" ? shapes[1] : shapes[0]
+      possibleResponses[1][0] == 'right hand middle finger'
+        ? shapes[1]
+        : shapes[0]
     }</b>, press your <b>right hand middle finger (period key (.))</b>.</p>
     <p class="block-text">If you see a star around the shape, please try your best to <b>withhold your response</b> on that trial.</p>
 
     <p class="block-text">Then you will see a single stimulus.</p>
     <p class="block-text">If it is a single letter that was <b>${
-      possibleResponses[2][0] == "left hand index finger" ? recognition[0] : recognition [1]
+      possibleResponses[2][0] == 'left hand index finger'
+        ? recognition[0]
+        : recognition[1]
     }</b>, from the first phase, press your <b>left hand index finger (X key)</b>.</p>
     <p class="block-text">If it is a the single letter that was <b>${
-      possibleResponses[3][0] == "left hand middle finger" ? recognition[1] : recognition[0]
+      possibleResponses[3][0] == 'left hand middle finger'
+        ? recognition[1]
+        : recognition[0]
     }</b> from the first phase, press your <b>left hand middle finger (Z key)</b>.</p>
-    <p class="block-text">If there were * signs shown during the first phase, press your <b>${possibleResponses[3][0]} (${possibleResponses[3][2]})</b> when you see ().</p>
+    <p class="block-text">If there were * signs shown during the first phase, press your <b>${
+      possibleResponses[3][0]
+    } (${possibleResponses[3][2]})</b> when you see ().</p>
   </div>
   `,
 ];
@@ -967,17 +1058,17 @@ var pageInstruct = [
 var attentionCheckBlock = {
   type: jsPsychAttentionCheckRdoc,
   data: {
-    trial_id: "test_attention_check",
+    trial_id: 'test_attention_check',
     trial_duration: 60000,
     timing_post_trial: 200,
-    exp_stage: "test",
+    exp_stage: 'test',
   },
   question: getCurrAttentionCheckQuestion,
   key_answer: getCurrAttentionCheckAnswer,
   response_ends_trial: true,
   timing_post_trial: 200,
   trial_duration: 60000,
-  on_finish: data => (data["block_num"] = testCount),
+  on_finish: (data) => (data['block_num'] = testCount),
 };
 
 var attentionNode = {
@@ -989,9 +1080,9 @@ var attentionNode = {
 
 var feedbackInstructBlock = {
   type: jsPsychHtmlKeyboardResponse,
-  choices: ["Enter"],
+  choices: ['Enter'],
   data: {
-    trial_id: "instruction_feedback",
+    trial_id: 'instruction_feedback',
     trial_duration: 180000,
   },
   stimulus: getInstructFeedback,
@@ -1002,7 +1093,7 @@ var feedbackInstructBlock = {
 var goInstructionsBlock = {
   type: jsPsychInstructions,
   data: {
-    trial_id: "instructions",
+    trial_id: 'instructions',
     trial_duration: null,
     stimulus: goInstruct,
   },
@@ -1015,7 +1106,7 @@ var goInstructionsBlock = {
 var phase1InstructionsBlock = {
   type: jsPsychInstructions,
   data: {
-    trial_id: "instructions",
+    trial_id: 'instructions',
     trial_duration: null,
     stimulus: phase1Instruct,
   },
@@ -1028,7 +1119,7 @@ var phase1InstructionsBlock = {
 var phase2InstructionsBlock = {
   type: jsPsychInstructions,
   data: {
-    trial_id: "instructions",
+    trial_id: 'instructions',
     trial_duration: null,
     stimulus: phase2Instruct,
   },
@@ -1041,7 +1132,7 @@ var phase2InstructionsBlock = {
 var instructionsBlock = {
   type: jsPsychInstructions,
   data: {
-    trial_id: "instructions",
+    trial_id: 'instructions',
     trial_duration: null,
     stimulus: pageInstruct,
   },
@@ -1055,11 +1146,11 @@ var goInstructionNode = {
   timeline: [feedbackInstructBlock, goInstructionsBlock],
 };
 var phase1InstructionNode = {
-  timeline: [phase1InstructionsBlock]
+  timeline: [phase1InstructionsBlock],
 };
 
 var phase2InstructionNode = {
-  timeline: [phase2InstructionsBlock]
+  timeline: [phase2InstructionsBlock],
 };
 
 var instructionNode = {
@@ -1067,7 +1158,7 @@ var instructionNode = {
   loop_function: function (data) {
     for (i = 0; i < data.trials.length; i++) {
       if (
-        data.trials[i].trial_id == "instructions" &&
+        data.trials[i].trial_id == 'instructions' &&
         data.trials[i].rt != null
       ) {
         sumInstructTime += data.trials[i].rt;
@@ -1075,11 +1166,11 @@ var instructionNode = {
     }
     if (sumInstructTime <= instructTimeThresh * 1000) {
       feedbackInstructText =
-        "<p class=block-text>Read through instructions too quickly. Please take your time and make sure you understand the instructions.</p><p class=block-text>Press <i>enter</i> to continue.</p>";
+        '<p class=block-text>Read through instructions too quickly. Please take your time and make sure you understand the instructions.</p><p class=block-text>Press <i>enter</i> to continue.</p>';
       return true;
     } else if (sumInstructTime > instructTimeThresh * 1000) {
       feedbackInstructText =
-        "<p class=block-text>Done with instructions. Press <i>enter</i> to continue.</p>";
+        '<p class=block-text>Done with instructions. Press <i>enter</i> to continue.</p>';
       return false;
     }
   },
@@ -1087,38 +1178,49 @@ var instructionNode = {
 
 var fixationBlock = {
   type: jsPsychHtmlKeyboardResponse,
-  stimulus: "<div class = centerbox><div class = fixation>+</div></div>",
-  choices: ["NO_KEYS"],
+  stimulus: '<div class = centerbox><div class = fixation>+</div></div>',
+  choices: ['NO_KEYS'],
   data: {
-    trial_id: "test_fixation",
+    trial_id: 'test_fixation',
     trial_duration: 250,
     stimulus_duration: 250,
-    exp_stage: "test",
-  },
-  post_trial_gap: 0,
-  stimulus_duration: 250, 
-  trial_duration: 250,
-  on_finish: data => (data["block_num"] = testCount),
-};
-
-var practiceFixation = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: "<div class = centerbox><div class = fixation>+</div></div>",
-  choices: ["NO_KEYS"],
-  data: {
-    trial_id: "practice_fixation",
-    trial_duration: 250,
-    stimulus_duration: 250,
-    exp_stage: "practice",
+    exp_stage: 'test',
   },
   post_trial_gap: 0,
   stimulus_duration: 250,
   trial_duration: 250,
-  on_finish: data => (data["block_num"] = practiceCount),
+  on_finish: (data) => (data['block_num'] = testCount),
+};
+
+var practiceFixation = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: '<div class = centerbox><div class = fixation>+</div></div>',
+  choices: ['NO_KEYS'],
+  data: {
+    trial_id: 'practice_fixation',
+    trial_duration: 250,
+    stimulus_duration: 250,
+    exp_stage: 'practice',
+  },
+  post_trial_gap: 0,
+  stimulus_duration: 250,
+  trial_duration: 250,
+  on_finish: (data) => (data['block_num'] = practiceCount),
+  prompt: function () {
+    if (practiceStage === 'go_only') {
+      return goPromptText;
+    } else if (practiceStage === 'stop_only') {
+      return phase2PromptText;
+    } else if (practiceStage === 'memory_recognition_only') {
+      return phase1PromptText;
+    } else if (practiceStage === 'full_trial') {
+      return promptText;
+    } else return;
+  },
 };
 
 var feedbackText =
-  "<div class = centerbox><p class = center-block-text>Press <i>enter</i> to begin practice.</p></div>";
+  '<div class = centerbox><p class = center-block-text>Press <i>enter</i> to begin practice.</p></div>';
 
 // Flags to ensure feedbackText is set only once per node
 var goPracticeFirstLoop = true;
@@ -1129,56 +1231,57 @@ var practiceFirstLoop = true;
 // Function to set feedbackText only once
 function setFeedbackTextIfFirstLoop(firstLoopFlag) {
   if (firstLoopFlag) {
-    feedbackText = "<div class='centerbox'><p class='center-block-text'>Press <i>enter</i> to begin practice.</p></div>";
+    feedbackText =
+      "<div class='centerbox'><p class='center-block-text'>Press <i>enter</i> to begin practice.</p></div>";
   }
 }
 
 // Define setupFeedbackText functions for each practice node
 const setupGoPracticeFeedbackText = {
   type: jsPsychCallFunction,
-  func: function() {
+  func: function () {
     setFeedbackTextIfFirstLoop(goPracticeFirstLoop);
     goPracticeFirstLoop = false;
-  }
+  },
 };
 
 const setupPhase1PracticeFeedbackText = {
   type: jsPsychCallFunction,
-  func: function() {
+  func: function () {
     setFeedbackTextIfFirstLoop(phase1PracticeFirstLoop);
     phase1PracticeFirstLoop = false;
-  }
+  },
 };
 
 const setupPhase2PracticeFeedbackText = {
   type: jsPsychCallFunction,
-  func: function() {
+  func: function () {
     setFeedbackTextIfFirstLoop(phase2PracticeFirstLoop);
     phase2PracticeFirstLoop = false;
-  }
+  },
 };
 
 const setupPracticeFeedbackText = {
   type: jsPsychCallFunction,
-  func: function() {
+  func: function () {
     setFeedbackTextIfFirstLoop(practiceFirstLoop);
     practiceFirstLoop = false;
-  }
+  },
 };
 
 var feedbackBlock = {
   type: jsPsychHtmlKeyboardResponse,
   data: function () {
-    if (getExpStage() == "practice") {
+    if (getExpStage() == 'practice') {
       return {
-        trial_id: "practice_feedback",
+        trial_id: 'practice_feedback',
         exp_stage: getExpStage(),
         trial_duration: 60000,
         block_num: practiceCount,
       };
     } else {
       return {
-        trial_id: "test_feedback",
+        trial_id: 'test_feedback',
         exp_stage: getExpStage(),
         trial_duration: 60000,
         block_num: testCount,
@@ -1188,7 +1291,7 @@ var feedbackBlock = {
   stimulus: getFeedback,
   post_trial_gap: 0,
   trial_duration: 60000,
-  choices: ["Enter"],
+  choices: ['Enter'],
   response_ends_trial: true,
 };
 
@@ -1197,45 +1300,58 @@ var ITIms = null;
 // *** ITI *** //
 var ITIBlock = {
   type: jsPsychHtmlKeyboardResponse,
-  stimulus: "<div class = centerbox><div class = fixation>+</div></div>",
+  stimulus: '<div class = centerbox><div class = fixation>+</div></div>',
   is_html: true,
-  choices: ["NO_KEYS"],
+  choices: ['NO_KEYS'],
   data: function () {
-    if (getExpStage() == "practice") {
+    if (getExpStage() == 'practice') {
       return {
-        trial_id: "practice_ITI",
+        trial_id: 'practice_ITI',
         block_num: practiceCount,
-        exp_stage: "practice",
+        exp_stage: 'practice',
       };
     } else {
       return {
-        trial_id: "test_ITI",
+        trial_id: 'test_ITI',
         block_num: testCount,
-        exp_stage: "test",
+        exp_stage: 'test',
       };
     }
   },
   post_trial_gap: 0,
-  trial_duration: 250, 
+  trial_duration: 250,
   stimulus_duration: 250,
   on_finish: function (data) {
-    data["trial_duration"] = 250;
-    data["stimulus_duration"] = 250;
+    data['trial_duration'] = 250;
+    data['stimulus_duration'] = 250;
+  },
+  prompt: function () {
+    if (expStage === 'test') return;
+
+    if (practiceStage === 'go_only') {
+      return goPromptText;
+    } else if (practiceStage === 'stop_only') {
+      return phase2PromptText;
+    } else if (practiceStage === 'memory_recognition_only') {
+      return phase1PromptText;
+    } else if (practiceStage === 'full_trial') {
+      return promptText;
+    } else return;
   },
 };
 
 /** ******************************************/
 /*				Set up nodes				*/
 /** ******************************************/
-var goPracticeCount = 0
+var goPracticeCount = 0;
 var goPracticeTrials = [];
 for (i = 0; i < goPracticeLen; i++) {
   var practiceGoTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: getGoStim,
     data: {
-      trial_id: "practice_go_trial",
-      exp_stage: "practice",
+      trial_id: 'practice_go_trial',
+      exp_stage: 'practice',
       trial_duration: stimTrialDuration,
       stimulus_duration: stimStimulusDuration,
     },
@@ -1256,29 +1372,29 @@ for (i = 0; i < goPracticeLen; i++) {
     type: jsPsychHtmlKeyboardResponse,
     data: function () {
       return {
-        exp_stage: "practice",
-        trial_id: "practice_feedback",
+        exp_stage: 'practice',
+        trial_id: 'practice_feedback',
         trial_duration: 500,
         stimulus_duration: 500,
-        block_num: practiceCount, 
+        block_num: practiceCount,
       };
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus: function () {
       var last = jsPsych.data.get().last(1).trials[0];
       if (last.response === last.correct_response) {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
           goPromptText
         );
       } else if (last.response === null) {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>' +
           goPromptText
         );
       } else {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>' +
           goPromptText
         );
       }
@@ -1289,18 +1405,19 @@ for (i = 0; i < goPracticeLen; i++) {
     response_ends_trial: false,
     prompt: goPromptText,
   };
-  
+
   goPracticeTrials.push(
     practiceFixation,
     practiceGoTrial,
     practiceGoFeedbackBlock,
     ITIBlock
   );
-
 }
 
 var goPracticeNode = {
-  timeline: [setupGoPracticeFeedbackText, feedbackBlock].concat(goPracticeTrials),
+  timeline: [setupGoPracticeFeedbackText, feedbackBlock].concat(
+    goPracticeTrials
+  ),
   loop_function: function (data) {
     goPracticeCount += 1;
 
@@ -1309,7 +1426,7 @@ var goPracticeNode = {
     var missedResponses = 0;
 
     for (var i = 0; i < data.trials.length; i++) {
-      if (data.trials[i].trial_id == "practice_go_trial") {
+      if (data.trials[i].trial_id == 'practice_go_trial') {
         total += 1;
         if (data.trials[i].response == data.trials[i].correct_response) {
           correct += 1;
@@ -1325,32 +1442,28 @@ var goPracticeNode = {
       (correct / total >= goCorrectPracticeThresh &&
         missedResponses / total <= goOmissionPracticeThresh)
     ) {
+      practiceStage = 'stop_only';
       return false;
-
-      } else {
-      feedbackText = 
-      `<div class = centerbox><p class = block-text>Please take this time to read your feedback!</p>`;
+    } else {
+      feedbackText = `<div class = centerbox><p class = block-text>Please take this time to read your feedback!</p>`;
 
       if (correct / total < goCorrectPracticeThresh) {
-        feedbackText +=
-          `<p class = block-text>Your accuracy is too low. Remember:</p>
+        feedbackText += `<p class = block-text>Your accuracy is too low. Remember:</p>
           ${goPromptTextList}`;
       }
 
       if (missedResponses / total > goOmissionPracticeThresh) {
-        feedbackText +=
-          `<p class = block-text>You have been responding too slowly. Remember:</p>
+        feedbackText += `<p class = block-text>You have been responding too slowly. Remember:</p>
           ${speedReminder}`;
 
-      feedbackText +=
-      `<p class=block-text>We are now going to repeat the practice round.</p>` +
-      `<p class=block-text>Press <i>enter</i> to begin.</p></div>`;
-      goStims = createGoTrialTypes(goPracticeLen);
-      return true;
-
+        feedbackText +=
+          `<p class=block-text>We are now going to repeat the practice round.</p>` +
+          `<p class=block-text>Press <i>enter</i> to begin.</p></div>`;
+        goStims = createGoTrialTypes(goPracticeLen);
+        return true;
       }
     }
-  }
+  },
 };
 
 var phase1PracticeCount = 0;
@@ -1360,12 +1473,12 @@ for (i = 0; i < phase1PracticeLen; i++) {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: getPhase1MemoryPresentationStim,
     data: {
-      trial_id: "practice_memory_trial",
-      exp_stage: "practice",
+      trial_id: 'practice_memory_trial',
+      exp_stage: 'practice',
       trial_duration: 2000,
       stimulus_duration: 2000,
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus_duration: 2000,
     trial_duration: 2000,
     response_ends_trial: false,
@@ -1380,8 +1493,8 @@ for (i = 0; i < phase1PracticeLen; i++) {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: getMemoryRecognitionStim,
     data: {
-      trial_id: "practice_memory_recognition",
-      exp_stage: "practice",
+      trial_id: 'practice_memory_recognition',
+      exp_stage: 'practice',
       trial_duration: 1500,
       stimulus_duration: 1500,
     },
@@ -1394,36 +1507,35 @@ for (i = 0; i < phase1PracticeLen; i++) {
     on_finish: function (data) {
       appendMemoryTrialData(data);
     },
-    prompt: phase1PromptText, 
+    prompt: phase1PromptText,
   };
   var practiceRecognitionFeedbackBlock = {
     type: jsPsychHtmlKeyboardResponse,
     data: function () {
       return {
-        exp_stage: "practice",
-        trial_id: "practice_recognition_feedback",
+        exp_stage: 'practice',
+        trial_id: 'practice_recognition_feedback',
         trial_duration: 500,
         stimulus_duration: 500,
         block_num: practiceCount,
       };
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus: function () {
       var last = jsPsych.data.get().last(1).trials[0];
       if (last.response === last.correct_response) {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
           phase1PromptText
         );
       } else if (last.response === null) {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>' +
           phase1PromptText
         );
-      }
-      else {
+      } else {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>' +
           phase1PromptText
         );
       }
@@ -1444,7 +1556,9 @@ for (i = 0; i < phase1PracticeLen; i++) {
   );
 }
 var phase1PracticeNode = {
-  timeline: [setupPhase1PracticeFeedbackText, feedbackBlock].concat(phase1PracticeTrials),
+  timeline: [setupPhase1PracticeFeedbackText, feedbackBlock].concat(
+    phase1PracticeTrials
+  ),
   loop_function: function (data) {
     phase1PracticeCount += 1;
     var correct = 0;
@@ -1452,7 +1566,7 @@ var phase1PracticeNode = {
     var missedResponses = 0;
 
     for (var i = 0; i < data.trials.length; i++) {
-      if (data.trials[i].trial_id == "practice_memory_recognition") {
+      if (data.trials[i].trial_id == 'practice_memory_recognition') {
         total += 1;
         if (data.trials[i].response == data.trials[i].correct_response) {
           correct += 1;
@@ -1468,21 +1582,18 @@ var phase1PracticeNode = {
       (correct / total >= memoryCorrectPracticeThresh &&
         missedResponses / total <= memoryOmissionPracticeThresh)
     ) {
+      practiceStage = 'full_trial';
       return false;
-      
     } else {
-      feedbackText =
-        `<div class = centerbox><p class = block-text>Please take this time to read your feedback!</p>`;
+      feedbackText = `<div class = centerbox><p class = block-text>Please take this time to read your feedback!</p>`;
 
       if (correct / total < memoryCorrectPracticeThresh) {
-        feedbackText +=
-          `<p class = block-text>Your accuracy is too low. Remember:</p>
+        feedbackText += `<p class = block-text>Your accuracy is too low. Remember:</p>
           ${phase1PromptTextList}`;
       }
 
       if (missedResponses / total > memoryOmissionPracticeThresh) {
-        feedbackText +=
-          `<p class = block-text>You have been responding too slowly. Remember:</p>
+        feedbackText += `<p class = block-text>You have been responding too slowly. Remember:</p>
           ${speedReminder}`;
       }
 
@@ -1492,7 +1603,7 @@ var phase1PracticeNode = {
       phase1Stims = createPhase1TrialTypes(phase1PracticeLen);
       return true;
     }
-  }
+  },
 };
 
 var phase2PracticeCount = 0;
@@ -1504,8 +1615,8 @@ for (i = 0; i < phase2PracticeLen; i++) {
     SS_stimulus: getStopStim,
     SS_trial_type: getCondition,
     data: {
-      trial_id: "practice_stop_trial",
-      exp_stage: "practice",
+      trial_id: 'practice_stop_trial',
+      exp_stage: 'practice',
       trial_duration: stimTrialDuration,
       stimulus_duration: stimStimulusDuration,
     },
@@ -1527,42 +1638,42 @@ for (i = 0; i < phase2PracticeLen; i++) {
     type: jsPsychHtmlKeyboardResponse,
     data: function () {
       return {
-        exp_stage: "practice",
-        trial_id: "practice_feedback",
+        exp_stage: 'practice',
+        trial_id: 'practice_feedback',
         trial_duration: 500,
         stimulus_duration: 500,
         block_num: practiceCount,
       };
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus: function () {
       var last = jsPsych.data.get().last(1).trials[0];
-      if (last.condition == "stop") {
+      if (last.condition == 'stop') {
         if (last.response === null) {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
             phase2PromptText
           );
         } else {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>There was a star</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>There was a star</font></div></div>' +
             phase2PromptText
           );
         }
       } else {
         if (last.response === null) {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>' +
             phase2PromptText
           );
         } else if (last.response === last.correct_response) {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
             phase2PromptText
           );
         } else {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>' +
             phase2PromptText
           );
         }
@@ -1583,7 +1694,9 @@ for (i = 0; i < phase2PracticeLen; i++) {
   );
 }
 var phase2PracticeNode = {
-  timeline: [setupPhase2PracticeFeedbackText, feedbackBlock].concat(phase2PracticeTrials),
+  timeline: [setupPhase2PracticeFeedbackText, feedbackBlock].concat(
+    phase2PracticeTrials
+  ),
   loop_function: function (data) {
     phase2PracticeCount += 1;
     var goLength = 0;
@@ -1596,14 +1709,14 @@ var phase2PracticeNode = {
     SSDs = [];
 
     for (var i = 0; i < data.trials.length; i++) {
-      if (data.trials[i].trial_id == "practice_stop_trial") {
+      if (data.trials[i].trial_id == 'practice_stop_trial') {
         if (
-          data.trials[i].condition == "go" ||
-          data.trials[i].condition == "stop"
+          data.trials[i].condition == 'go' ||
+          data.trials[i].condition == 'stop'
         ) {
           SSDs.push(data.trials[i].SSD);
         }
-        if (data.trials[i].condition == "go") {
+        if (data.trials[i].condition == 'go') {
           goLength += 1;
           if (data.trials[i].response != null) {
             numGoResponses += 1;
@@ -1612,7 +1725,7 @@ var phase2PracticeNode = {
               sumGoCorrect += 1;
             }
           }
-        } else if (data.trials[i].condition == "stop") {
+        } else if (data.trials[i].condition == 'stop') {
           stopLength += 1;
           if (data.trials[i].response != null) {
             numStopResponses += 1;
@@ -1620,7 +1733,7 @@ var phase2PracticeNode = {
         }
       }
     }
-    
+
     var avgGoRT = sumGoRT / numGoResponses;
     var missedGoResponses = (goLength - numGoResponses) / goLength;
     var aveShapeRespondCorrect = sumGoCorrect / goLength;
@@ -1635,10 +1748,12 @@ var phase2PracticeNode = {
         stopSignalRespond > minStopCorrectPractice &&
         stopSignalRespond < maxStopCorrectPractice)
     ) {
+      practiceStage = 'memory_recognition_only';
+      console.log('Entering phase 1', practiceStage);
       return false;
     } else {
       feedbackText =
-        "<div class = centerbox><p class = block-text>Please take this time to read your feedback! This screen will advance automatically in 1 minute.</p>";
+        '<div class = centerbox><p class = block-text>Please take this time to read your feedback! This screen will advance automatically in 1 minute.</p>';
 
       if (aveShapeRespondCorrect <= practiceAccuracyThresh) {
         feedbackText += `
@@ -1669,24 +1784,24 @@ var phase2PracticeNode = {
       phase2Stims = createPhase2TrialTypes(phase2PracticeLen);
       return true;
     }
-  }
+  },
 };
 
 var practiceStopTrials = [];
 for (i = 0; i < practiceLen; i++) {
   if (i == 0) {
-  practiceStopTrials.push(fixationBlock);
+    practiceStopTrials.push(practiceFixation);
   }
   var practiceMemoryPresentation = {
-    type:jsPsychHtmlKeyboardResponse,
+    type: jsPsychHtmlKeyboardResponse,
     stimulus: getMemoryPresentationStim,
     data: {
-      trial_id: "practice_memory_trial",
-      exp_stage: "practice",
+      trial_id: 'practice_memory_trial',
+      exp_stage: 'practice',
       trial_duration: 2500,
       stimulus_duration: 2000,
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus_duration: 2000,
     trial_duration: 2500,
     response_ends_trial: false,
@@ -1704,15 +1819,15 @@ for (i = 0; i < practiceLen; i++) {
     SS_stimulus: getStopStim,
     SS_trial_type: getCondition,
     data: {
-      trial_id: "practice_stop_trial",
-      exp_stage: "practice",
-      trial_duration: stimTrialDuration+500,
+      trial_id: 'practice_stop_trial',
+      exp_stage: 'practice',
+      trial_duration: stimTrialDuration + 500,
       stimulus_duration: stimStimulusDuration,
     },
     choices: stopChoices,
     correct_choice: getCorrectResponse,
     stimulus_duration: stimStimulusDuration, // 1000
-    trial_duration: stimTrialDuration+500, // 1500
+    trial_duration: stimTrialDuration + 500, // 1500
     response_ends_trial: false,
     SSD: function () {
       presentationData = jsPsych.data.get().last(1).values()[0];
@@ -1730,8 +1845,8 @@ for (i = 0; i < practiceLen; i++) {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: getMemoryRecognitionStim,
     data: {
-      trial_id: "practice_memory_recognition",
-      exp_stage: "practice",
+      trial_id: 'practice_memory_recognition',
+      exp_stage: 'practice',
       trial_duration: 1500,
       stimulus_duration: 2000,
     },
@@ -1750,42 +1865,42 @@ for (i = 0; i < practiceLen; i++) {
     type: jsPsychHtmlKeyboardResponse,
     data: function () {
       return {
-        exp_stage: "practice",
-        trial_id: "practice_feedback",
+        exp_stage: 'practice',
+        trial_id: 'practice_feedback',
         trial_duration: 500,
         stimulus_duration: 500,
         block_num: practiceCount,
       };
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus: function () {
       var last = jsPsych.data.get().last(1).trials[0];
-      if (last.condition == "stop") {
+      if (last.condition == 'stop') {
         if (last.response === null) {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
             promptText
           );
         } else {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>There was a star</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>There was a star</font></div></div>' +
             promptText
           );
         }
       } else {
         if (last.response == null) {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>' +
             promptText
           );
         } else if (last.response === last.correct_response) {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
             promptText
           );
         } else {
           return (
-            "<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>" +
+            '<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>' +
             promptText
           );
         }
@@ -1797,35 +1912,34 @@ for (i = 0; i < practiceLen; i++) {
     response_ends_trial: false,
     prompt: promptText,
   };
-  
+
   var practiceRecognitionFeedbackBlock = {
     type: jsPsychHtmlKeyboardResponse,
     data: function () {
       return {
-        exp_stage: "practice",
-        trial_id: "practice_recognition_feedback",
+        exp_stage: 'practice',
+        trial_id: 'practice_recognition_feedback',
         trial_duration: 500,
         stimulus_duration: 500,
         block_num: practiceCount,
       };
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus: function () {
       var last = jsPsych.data.get().last(1).trials[0];
       if (last.response === last.correct_response) {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Correct!</font></div></div>' +
           promptText
         );
       } else if (last.response === null) {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Respond Faster!</font></div></div>' +
           promptText
         );
-      }
-      else {
+      } else {
         return (
-          "<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>" +
+          '<div class=center-box><div class=center-text><font size = 20>Incorrect</font></div></div>' +
           promptText
         );
       }
@@ -1850,7 +1964,9 @@ for (i = 0; i < practiceLen; i++) {
 
 var practiceCount = 0;
 var practiceNode = {
-  timeline: [setupPracticeFeedbackText, feedbackBlock].concat(practiceStopTrials), 
+  timeline: [setupPracticeFeedbackText, feedbackBlock].concat(
+    practiceStopTrials
+  ),
   loop_function: function (data) {
     practiceCount += 1;
     // go trials
@@ -1871,13 +1987,13 @@ var practiceNode = {
     var recognitionResponses = 0;
     for (i = 0; i < data.trials.length; i++) {
       if (
-        data.trials[i].condition == "go" ||
-        data.trials[i].condition == "stop"
+        data.trials[i].condition == 'go' ||
+        data.trials[i].condition == 'stop'
       ) {
         SSDs.push(data.trials[i].SSD);
       }
       if (
-        data.trials[i].condition == "go" &&
+        data.trials[i].condition == 'go' &&
         data.trials[i].block_num == getCurrBlockNum() - 1
       ) {
         goLength += 1;
@@ -1889,7 +2005,7 @@ var practiceNode = {
           }
         }
       } else if (
-        data.trials[i].condition == "stop" &&
+        data.trials[i].condition == 'stop' &&
         data.trials[i].block_num == getCurrBlockNum() - 1
       ) {
         stopLength += 1;
@@ -1897,8 +2013,8 @@ var practiceNode = {
           numStopResponses += 1;
         }
       } else if (
-        (data.trials[i].condition == "in memory set" ||
-        data.trials[i].condition == "not in memory set") &&
+        (data.trials[i].condition == 'in memory set' ||
+          data.trials[i].condition == 'not in memory set') &&
         data.trials[i].block_num == getCurrBlockNum() - 1
       ) {
         recognitionLength += 1;
@@ -1914,7 +2030,8 @@ var practiceNode = {
 
     var avgGoRT = sumGoRT / numGoResponses;
     var missedGoResponses = (goLength - numGoResponses) / goLength;
-    var missedLetterResponses = (recognitionLength - recognitionResponses) / recognitionLength;
+    var missedLetterResponses =
+      (recognitionLength - recognitionResponses) / recognitionLength;
     var aveShapeRespondCorrect = sumGoCorrect / goLength;
     var stopSignalRespond = numStopResponses / stopLength;
     var avgRecognitionRT = recognitionRT / recognitionResponses;
@@ -1931,13 +2048,13 @@ var practiceNode = {
     if (
       practiceCount == practiceThresh ||
       (aveShapeRespondCorrect > practiceAccuracyThresh &&
-      recognitionAccuracy > practiceLetterAccuracyThresh &&
-      avgGoRT <= rtThresh &&
-      avgRecognitionRT <= letterRtThresh &&
-      missedGoResponses <= missedResponseThresh &&
-      missedLetterResponses <= missedResponseThresh &&
-      stopSignalRespond > minStopCorrectPractice &&
-      stopSignalRespond < maxStopCorrectPractice)
+        recognitionAccuracy > practiceLetterAccuracyThresh &&
+        avgGoRT <= rtThresh &&
+        avgRecognitionRT <= letterRtThresh &&
+        missedGoResponses <= missedResponseThresh &&
+        missedLetterResponses <= missedResponseThresh &&
+        stopSignalRespond > minStopCorrectPractice &&
+        stopSignalRespond < maxStopCorrectPractice)
     ) {
       feedbackText = `
       <div class="centerbox">
@@ -1947,12 +2064,12 @@ var practiceNode = {
         <p class="block-text">Press <i>enter</i> to continue.</p>
       </div>`;
 
-      expStage = "test";
+      expStage = 'test';
       stims = createTrialTypes(numTrialsPerBlock);
       return false;
     } else {
       feedbackText =
-        "<div class = centerbox><p class = block-text>Please take this time to read your feedback! This screen will advance automatically in 1 minute.</p>";
+        '<div class = centerbox><p class = block-text>Please take this time to read your feedback! This screen will advance automatically in 1 minute.</p>';
 
       if (aveShapeRespondCorrect <= practiceAccuracyThresh) {
         feedbackText += `
@@ -1978,7 +2095,10 @@ var practiceNode = {
         ${speedReminder}`;
       }
 
-      if (missedGoResponses > missedResponseThresh || missedLetterResponses > missedResponseThresh){
+      if (
+        missedGoResponses > missedResponseThresh ||
+        missedLetterResponses > missedResponseThresh
+      ) {
         if (missedGoResponses > missedResponseThresh) {
           feedbackText += `
           <p class="block-text">You have missed a number of shape trials. Remember to respond to every shape as quickly and accurately as possible.</p>`;
@@ -2020,12 +2140,12 @@ for (i = 0; i < numTrialsPerBlock; i++) {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: getMemoryPresentationStim,
     data: {
-      trial_id: "test_memory_trial",
-      exp_stage: "test",
+      trial_id: 'test_memory_trial',
+      exp_stage: 'test',
       trial_duration: 2000,
       stimulus_duration: 2000,
     },
-    choices: ["NO_KEYS"],
+    choices: ['NO_KEYS'],
     stimulus_duration: 2000,
     trial_duration: 2000,
     response_ends_trial: false,
@@ -2041,8 +2161,8 @@ for (i = 0; i < numTrialsPerBlock; i++) {
     SS_stimulus: getStopStim,
     SS_trial_type: getCondition,
     data: {
-      trial_id: "test_stop_trial",
-      exp_stage: "test",
+      trial_id: 'test_stop_trial',
+      exp_stage: 'test',
       trial_duration: stimTrialDuration,
       stimulus_duration: stimStimulusDuration,
     },
@@ -2068,8 +2188,8 @@ for (i = 0; i < numTrialsPerBlock; i++) {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: getMemoryRecognitionStim,
     data: {
-      trial_id: "test_memory_recognition",
-      exp_stage: "test",
+      trial_id: 'test_memory_recognition',
+      exp_stage: 'test',
       trial_duration: 1500,
       stimulus_duration: 2000,
     },
@@ -2084,11 +2204,12 @@ for (i = 0; i < numTrialsPerBlock; i++) {
     },
   };
   testTrials.push(
-    fixationBlock, 
+    fixationBlock,
     testMemoryPresentation,
     testStopTrial,
     testMemoryRecognition,
-    ITIBlock);
+    ITIBlock
+  );
 }
 
 var testCount = 0;
@@ -2117,13 +2238,13 @@ var testNode = {
 
     for (i = 0; i < data.trials.length; i++) {
       if (
-        data.trials[i].condition == "go" ||
-        data.trials[i].condition == "stop"
+        data.trials[i].condition == 'go' ||
+        data.trials[i].condition == 'stop'
       ) {
         SSDs.push(data.trials[i].SSD);
       }
       if (
-        data.trials[i].condition == "go" &&
+        data.trials[i].condition == 'go' &&
         data.trials[i].block_num == getCurrBlockNum() - 1
       ) {
         goLength += 1;
@@ -2135,7 +2256,7 @@ var testNode = {
           }
         }
       } else if (
-        data.trials[i].condition == "stop" &&
+        data.trials[i].condition == 'stop' &&
         data.trials[i].block_num == getCurrBlockNum() - 1
       ) {
         stopLength += 1;
@@ -2143,8 +2264,8 @@ var testNode = {
           numStopResponses += 1;
         }
       } else if (
-        (data.trials[i].condition == "in memory set" ||
-        data.trials[i].condition == "not in memory set") &&
+        (data.trials[i].condition == 'in memory set' ||
+          data.trials[i].condition == 'not in memory set') &&
         data.trials[i].block_num == getCurrBlockNum() - 1
       ) {
         recognitionLength += 1;
@@ -2164,7 +2285,8 @@ var testNode = {
     var stopSignalRespond = numStopResponses / stopLength;
     var avgRecognitionRT = recognitionRT / recognitionResponses;
     var recognitionAccuracy = recognitionCorrect / recognitionLength;
-    var missedLetterResponses = (recognitionLength - recognitionResponses) / recognitionLength;
+    var missedLetterResponses =
+      (recognitionLength - recognitionResponses) / recognitionLength;
     var SSD_0_percentage = SSDs.filter((x) => x == 0).length / SSDs.length;
 
     currentAttentionCheckData = attentionCheckData.shift();
@@ -2178,8 +2300,8 @@ var testNode = {
       return false;
     } else {
       feedbackText =
-        "<div class = centerbox><p class = block-text>Please take this time to read your feedback! This screen will advance automatically in 1 minute.</p>";
-        feedbackText += `<p class=block-text>You have completed ${testCount} out of ${numTestBlocks} blocks of trials.</p>`;
+        '<div class = centerbox><p class = block-text>Please take this time to read your feedback! This screen will advance automatically in 1 minute.</p>';
+      feedbackText += `<p class=block-text>You have completed ${testCount} out of ${numTestBlocks} blocks of trials.</p>`;
 
       if (aveShapeRespondCorrect <= accuracyThresh) {
         feedbackText += `
@@ -2205,7 +2327,10 @@ var testNode = {
         ${speedReminder}`;
       }
 
-      if (missedGoResponses > missedResponseThresh || missedLetterResponses > missedResponseThresh) {
+      if (
+        missedGoResponses > missedResponseThresh ||
+        missedLetterResponses > missedResponseThresh
+      ) {
         if (missedGoResponses > missedResponseThresh) {
           feedbackText += `
           <p class="block-text">You have missed a number of shape trials. Remember to respond to every shape as quickly and accurately as possible.</p>`;
@@ -2228,7 +2353,7 @@ var testNode = {
       }
 
       feedbackText +=
-        "<p class=block-text>Press <i>enter</i> to continue.</p>" + "</div>";
+        '<p class=block-text>Press <i>enter</i> to continue.</p>' + '</div>';
 
       stims = createTrialTypes(numTrialsPerBlock);
       return true;
@@ -2240,7 +2365,7 @@ var testNode = {
 };
 
 var postTaskQuestion =
-  "Do you have any comments, concerns, or issues pertaining to this task?";
+  'Do you have any comments, concerns, or issues pertaining to this task?';
 
 var postTaskBlock = {
   type: jsPsychSurveyText,
@@ -2255,7 +2380,7 @@ var postTaskBlock = {
   ],
   response_ends_trial: true,
   data: {
-    trial_id: "post_task_feedback",
+    trial_id: 'post_task_feedback',
   },
   on_finish: function (data) {
     data.question = postTaskQuestion;
@@ -2272,18 +2397,18 @@ var exitFullscreen = {
   fullscreen_mode: false,
 };
 
-var expID = "stop_signal_wm_task";
+var expID = 'stop_signal_wm_task';
 
 var endBlock = {
   type: jsPsychHtmlKeyboardResponse,
   data: {
-    trial_id: "end",
+    trial_id: 'end',
     exp_id: expID,
     trial_duration: 180000,
   },
   trial_duration: 180000,
   stimulus: endText,
-  choices: ["Enter"],
+  choices: ['Enter'],
   post_trial_gap: 0,
 };
 
@@ -2296,7 +2421,7 @@ var stop_signal_wm_task_init = () => {
   stop_signal_wm_task_experiment.push(goPracticeNode);
   phase2Stims = createPhase2TrialTypes(phase2PracticeLen);
   stop_signal_wm_task_experiment.push(phase2InstructionNode);
-  stop_signal_wm_task_experiment.push(phase2PracticeNode);  
+  stop_signal_wm_task_experiment.push(phase2PracticeNode);
   phase1Stims = createPhase1TrialTypes(phase1PracticeLen);
   stop_signal_wm_task_experiment.push(phase1InstructionNode);
   stop_signal_wm_task_experiment.push(phase1PracticeNode);
