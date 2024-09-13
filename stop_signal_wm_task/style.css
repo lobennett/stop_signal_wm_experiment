@@ -51,6 +51,14 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.large-centerbox {
+  width: 50vw;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .letter-text {
   width: 20vw;
   position: absolute;
@@ -132,7 +140,6 @@ img.center {
   grid-template-columns: repeat(3, 1fr); /* Creates three columns */
   gap: 10px; /* Adjusts the space between cells */
   height: 800px;
-
 }
 
 .cell {
