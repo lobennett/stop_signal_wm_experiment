@@ -587,69 +587,49 @@ var appendMemoryTrialData = function (data) {
 var possibleResponses;
 
 function getKeyMappingForTask(group_index) {
-  if (Math.floor(group_index / 6) % 8 === 0) {
-    possibleResponses = [
-      ['right hand index finger', ',', 'comma key (,)'],
-      ['right hand middle finger', '.', 'period key (.)'],
-      ['left hand index finger', 'x', 'X key'],
-      ['left hand middle finger', 'z', 'Z key'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 1) {
-    possibleResponses = [
-      ['right hand middle finger', '.', 'period key (.)'],
-      ['right hand index finger', ',', 'comma key (,)'],
-      ['left hand middle finger', 'z', 'Z key'],
-      ['left hand index finger', 'x', 'X key'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 2) {
-    possibleResponses = [
-      ['right hand index finger', ',', 'comma key (,)'],
-      ['right hand middle finger', '.', 'period key (.)'],
-      ['left hand middle finger', 'z', 'Z key'],
-      ['left hand index finger', 'x', 'X key'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 3) {
-    possibleResponses = [
-      ['right hand middle finger', '.', 'period key (.)'],
-      ['right hand index finger', ',', 'comma key (,)'],
-      ['left hand index finger', 'x', 'X key'],
-      ['left hand middle finger', 'z', 'Z key'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 4) {
-    possibleResponses = [
-      ['left hand index finger', 'x', 'X key'],
-      ['left hand middle finger', 'z', 'Z key'],
-      ['right hand index finger', ',', 'comma key (,)'],
-      ['right hand middle finger', '.', 'period key (.)'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 5) {
-    possibleResponses = [
-      ['left hand middle finger', 'z', 'Z key'],
-      ['left hand index finger', 'x', 'X key'],
-      ['right hand middle finger', '.', 'period key (.)'],
-      ['right hand index finger', ',', 'comma key (,)'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 6) {
-    possibleResponses = [
-      ['left hand index finger', 'x', 'X key'],
-      ['left hand middle finger', 'z', 'Z key'],
-      ['right hand middle finger', '.', 'period key (.)'],
-      ['right hand index finger', ',', 'comma key (,)'],
-    ];
-  }
-  if (Math.floor(group_index / 6) % 8 === 7) {
-    possibleResponses = [
-      ['left hand middle finger', 'z', 'Z key'],
-      ['left hand index finger', 'x', 'X key'],
-      ['right hand index finger', ',', 'comma key (,)'],
-      ['right hand middle finger', '.', 'period key (.)'],
-    ];
+  // Key mapping for circle/square must be the same for both tasks
+  // group_index is in range 0 to 3, inclusive
+
+  // SIMPLE STOP JUDGEMENTS
+  // If group_index <= 1: circle - index; square - middle
+  // If group_index > 2; square - index; circle - index
+
+  // STOP+WM JUDGEMENTS
+  // If group_index even: in memory set - index; not in memory set - middle
+  // If group_index odd: not in memory set - index; in memory set - middle
+
+  if (group_index <= 1) {
+    if (group_index % 2 === 0) {
+      possibleResponses = [
+        ['right hand index finger', ',', 'comma key (,)'],
+        ['right hand middle finger', '.', 'period key (.)'],
+        ['left hand index finger', 'x', 'X key'],
+        ['left hand middle finger', 'z', 'Z key'],
+      ];
+    } else {
+      possibleResponses = [
+        ['right hand index finger', ',', 'comma key (,)'],
+        ['right hand middle finger', '.', 'period key (.)'],
+        ['left hand middle finger', 'z', 'Z key'],
+        ['left hand index finger', 'x', 'X key'],
+      ];
+    }
+  } else {
+    if (group_index % 2 === 0) {
+      possibleResponses = [
+        ['right hand middle finger', '.', 'period key (.)'],
+        ['right hand index finger', ',', 'comma key (,)'],
+        ['left hand index finger', 'x', 'X key'],
+        ['left hand middle finger', 'z', 'Z key'],
+      ];
+    } else {
+      possibleResponses = [
+        ['right hand middle finger', '.', 'period key (.)'],
+        ['right hand index finger', ',', 'comma key (,)'],
+        ['left hand middle finger', 'z', 'Z key'],
+        ['left hand index finger', 'x', 'X key'],
+      ];
+    }
   }
 }
 
@@ -735,9 +715,9 @@ var possibleConditions = ['in memory set', 'not in memory set'];
 
 // IMAGES
 // path info
-// var pathSource = '/static/experiments/stop_signal_wm_task/images/';
-var pathSource =
-  '/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/';
+var pathSource = '/static/experiments/stop_signal_wm_task/images/';
+// var pathSource =
+// ('/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/');
 var postFileType = ".png'></img>";
 var preFileType = "<img class = center src='" + pathSource;
 // append to images array to preload
