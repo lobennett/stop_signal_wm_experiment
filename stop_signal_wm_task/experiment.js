@@ -592,7 +592,7 @@ function getKeyMappingForTask(group_index) {
 
   // SIMPLE STOP JUDGEMENTS
   // If group_index <= 1: circle - index; square - middle
-  // If group_index > 2; square - index; circle - index
+  // If group_index >= 2; square - index; circle - index
 
   // STOP+WM JUDGEMENTS
   // If group_index even: in memory set - index; not in memory set - middle
