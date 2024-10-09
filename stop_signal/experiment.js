@@ -303,9 +303,13 @@ var minStopCorrectPractice = 0;
 var stopSignalsConditions = ['go', 'go', 'stop'];
 var shapes = ['circle', 'square'];
 
-// IMAGES
-// path info
-var pathSource = '/static/experiments/stop_signal/images/';
+/* Image paths */
+// local
+// var pathSource = '/static/experiments/stop_signal/images/';
+// expfactory deploy - use the same path as stop+wm
+var pathSource =
+  '/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/';
+
 var postFileType = ".png'></img>";
 var preFileType = "<img class = center src='" + pathSource;
 // append to images array to preload
