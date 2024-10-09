@@ -1186,7 +1186,7 @@ var practiceFixation = {
   stimulus_duration: 250,
   trial_duration: 250,
   on_finish: (data) => (data['block_num'] = practiceCount),
-  prompt: function () {
+  prompt: function() {
     if (practiceStage === 'go_only') {
       return goPromptText;
     } else if (practiceStage === 'stop_only') {
@@ -1439,9 +1439,10 @@ var goPracticeNode = {
         feedbackText +=
           `<p class=block-text>We are now going to repeat the practice round.</p>` +
           `<p class=block-text>Press <i>enter</i> to begin.</p></div>`;
-        goStims = createGoTrialTypes(goPracticeLen);
-        return true;
       }
+      
+      goStims = createGoTrialTypes(goPracticeLen);
+      return true;
     }
   },
 };
@@ -1729,7 +1730,6 @@ var phase2PracticeNode = {
         stopSignalRespond < maxStopCorrectPractice)
     ) {
       practiceStage = 'memory_recognition_only';
-      console.log('Entering phase 1', practiceStage);
       return false;
     } else {
       feedbackText =
