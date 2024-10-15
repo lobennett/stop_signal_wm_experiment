@@ -161,7 +161,7 @@ var createGoTrialTypes = function (goPracticeLen) {
   return goStims;
 };
 
-var createPhase1TrialTypes = function (phase1PracticeLen) {
+var createPhase1TrialTypes = function(phase1PracticeLen) {
   var uniqueCombos = possibleMemoryLengths.length * possibleConditions.length;
   var phase1Stims = [];
   for (var y = 0; y < possibleMemoryLengths.length; y++) {
@@ -174,9 +174,10 @@ var createPhase1TrialTypes = function (phase1PracticeLen) {
       phase1Stims.push(stim);
     }
   }
+
   var iteration = phase1PracticeLen / uniqueCombos;
   phase1Stims = jsPsych.randomization.repeat(phase1Stims, iteration);
-  return phase1Stims;
+  return phase1Stims
 };
 
 var createPhase2TrialTypes = function (phase2PracticeLen) {
@@ -307,15 +308,17 @@ var getStim = function () {
 
 var lastShownLetters = ''; // Global variable to store the last shown letters
 
-var getPhase1MemoryPresentationStim = function () {
+var getPhase1MemoryPresentationStim = function() {
   stim = phase1Stims.shift();
+
   stimLength = stim.memoryStimLength;
   condition = stim.memory_condition;
   correct_response = stim.memory_correct_response;
 
   letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Example set of letters to choose from
   selectedLetters = '';
-  locations = ['', '', '', '', '', ''];
+  locations = ['', '', '', ''];
+
   if (stimLength === 0) {
   } else {
     for (var i = 0; i < stimLength; i++) {
@@ -325,32 +328,30 @@ var getPhase1MemoryPresentationStim = function () {
     }
     lastShownLetters = selectedLetters; // Update the global variable
   }
+
   if (stimLength === 0 && condition === 'not in memory set') {
-    locations = ['#', '', '#', '#', '', '#'];
+    locations = ['#', '#', '', ''];
   } else if (stimLength === 0 && condition === 'in memory set') {
-    locations = ['#', '#', '#', '#', '#', '#'];
+    locations = ['#', '#', '#', '#'];
+  } else if (stimLength === 2) {
+    locations = [selectedLetters.charAt(0), selectedLetters.charAt(1)];
   } else if (stimLength === 4) {
-    locations = [
-      selectedLetters.charAt(0),
-      '',
-      selectedLetters.charAt(1),
-      selectedLetters.charAt(2),
-      '',
-      selectedLetters.charAt(3),
-    ];
-  } else if (stimLength === 6) {
     locations = selectedLetters.split('');
   }
 
-  var stimuliHTML = "<div class='stimuli-box'><div class='grid'>";
-  for (var i = 0; i < locations.length; i++) {
-    stimuliHTML += "<div class='cell'>" + locations[i] + '</div>';
-  }
-  stimuliHTML += '</div></div>';
+  const classes = new Map([
+    [0, "left"],
+    [1, "right"],
+    [2, 'top'],
+    [3, 'bottom'],
+  ]);
 
-  // if (stimLength === 0) {
-  //   stimuliHTML = "<div class='centerbox'><div class='letter-text'>" + "*" + "</div></div>";
-  // }
+  var stimuliHTML = "<div class='container'>";
+  for (var i = 0; i < locations.length; i++) {
+      stimuliHTML +=
+        `<div class="stimulus ${classes.get(i)}">` + locations[i] + '</div>';
+  }
+  stimuliHTML += '</div>';
 
   stim = {
     stimuli: stimuliHTML,
@@ -363,18 +364,20 @@ var getPhase1MemoryPresentationStim = function () {
     },
   };
   stimData = stim.data;
-  return stim.stimuli;
+  return stim.stimuli
 };
 
 var getMemoryPresentationStim = function () {
   stim = stims[0];
+
   stimLength = stim.memoryStimLength;
   condition = stim.memory_condition;
   correct_response = stim.memory_correct_response;
 
   letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Example set of letters to choose from
   selectedLetters = '';
-  locations = ['', '', '', '', '', ''];
+  locations = ['', '', '', ''];
+
   if (stimLength === 0) {
   } else {
     for (var i = 0; i < stimLength; i++) {
@@ -384,32 +387,30 @@ var getMemoryPresentationStim = function () {
     }
     lastShownLetters = selectedLetters; // Update the global variable
   }
+
   if (stimLength === 0 && condition === 'not in memory set') {
-    locations = ['#', '', '#', '#', '', '#'];
+    locations = ['#', '#', '', ''];
   } else if (stimLength === 0 && condition === 'in memory set') {
-    locations = ['#', '#', '#', '#', '#', '#'];
+    locations = ['#', '#', '#', '#'];
+  } else if (stimLength === 2) {
+    locations = [selectedLetters.charAt(0), selectedLetters.charAt(1)];
   } else if (stimLength === 4) {
-    locations = [
-      selectedLetters.charAt(0),
-      '',
-      selectedLetters.charAt(1),
-      selectedLetters.charAt(2),
-      '',
-      selectedLetters.charAt(3),
-    ];
-  } else if (stimLength === 6) {
     locations = selectedLetters.split('');
   }
 
-  var stimuliHTML = "<div class='stimuli-box'><div class='grid'>";
-  for (var i = 0; i < locations.length; i++) {
-    stimuliHTML += "<div class='cell'>" + locations[i] + '</div>';
-  }
-  stimuliHTML += '</div></div>';
+  const classes = new Map([
+    [0, 'left'],
+    [1, 'right'],
+    [2, 'top'],
+    [3, 'bottom'],
+  ]);
 
-  // if (stimLength === 0) {
-  //   stimuliHTML = "<div class='centerbox'><div class='letter-text'>" + "*" + "</div></div>";
-  // }
+  var stimuliHTML = "<div class='container'>";
+  for (var i = 0; i < locations.length; i++) {
+    stimuliHTML +=
+      `<div class="stimulus ${classes.get(i)}">` + locations[i] + '</div>';
+  }
+  stimuliHTML += '</div>';
 
   stim = {
     stimuli: stimuliHTML,
@@ -710,7 +711,7 @@ var minStopCorrectPractice = 0;
 var stopSignalsConditions = ['go', 'go', 'stop'];
 var shapes = ['circle', 'square'];
 var recognition = ['in memory set', 'not in memory set'];
-var possibleMemoryLengths = [0, 4, 6];
+var possibleMemoryLengths = [0, 2, 4];
 var possibleConditions = ['in memory set', 'not in memory set'];
 
 /* Image paths */ 
@@ -953,9 +954,9 @@ var phase1Instruct = [
   `
   <div class="centerbox">
     <p class="block-text">Before you do the shape task that you just practiced, you will see a number of letters appear on the screen.</p>
-    <p class="block-text">If there are 4 or 6 letters shown, you must remember all the letters. This will be called your memory set.</p>
+    <p class="block-text">If there are 2 or 4 letters shown, you must remember all the letters. This will be called your memory set.</p>
     <p class="block-text">After you complete the shape task, there will be a single letter shown on screen.</p>
-    <p class="block-text">If there were 4 or 6 letters shown during the first phase, you will see a single letter.</p>
+    <p class="block-text">If there were 2 or 4 letters shown during the first phase, you will see a single letter.</p>
     <p class="block-text">If the single letter was <b>${
       possibleResponses[2][0] == 'left hand index finger'
         ? recognition[0]
@@ -970,7 +971,7 @@ var phase1Instruct = [
   `,
   `
   <div class="centerbox">
-    <p class="block-text">Sometimes, instead of 4 or 6 letters, you may see 4 or 6 # signs on the screen. You will have no letters to remember for these trials.</p>
+    <p class="block-text">Sometimes, instead of 2 or 4 letters, you may see 2 or 4 # signs on the screen. You will have no letters to remember for these trials.</p>
     <p class="block-text">For these trials, after you complete the shape task, you will see () on the screen instead of a single letter.
     Press your <b>${possibleResponses[3][0]} (${possibleResponses[3][2]})</b> when you see ().</p>
   </div>
@@ -1001,7 +1002,7 @@ var pageInstruct = [
     <p class="block-text">Finally, we will start a practice round of the entire task together. During practice, you will receive feedback and a reminder of the rules. These will be taken out for the test, so make sure you understand the instructions before moving on.</p>
     <p class="block-text">Try to respond as quickly and accurately as possible.</p>
 
-    <p class="block-text">On each trial, you will see 4 or 6 letters or * signs. If you see letters, remember them. Then you will see a shape.</p>
+    <p class="block-text">On each trial, you will see 2 or 4 letters or # signs. If you see letters, remember them. Then you will see a shape.</p>
     <p class="block-text">If the shape is a <b>${
       possibleResponses[0][0] == 'right hand index finger'
         ? shapes[0]
@@ -1025,7 +1026,7 @@ var pageInstruct = [
         ? recognition[1]
         : recognition[0]
     }</b> from the first phase, press your <b>left hand middle finger (Z key)</b>.</p>
-    <p class="block-text">If there were * signs shown during the first phase, press your <b>${
+    <p class="block-text">If there were # signs shown during the first phase, press your <b>${
       possibleResponses[3][0]
     } (${possibleResponses[3][2]})</b> when you see ().</p>
   </div>
@@ -2130,7 +2131,7 @@ for (i = 0; i < numTrialsPerBlock; i++) {
     trial_duration: 2000,
     response_ends_trial: false,
     post_trial_gap: 500,
-    on_finish: function (data) {
+    on_finish: function(data) {
       appendMemoryPresentationData(data);
     },
   };
