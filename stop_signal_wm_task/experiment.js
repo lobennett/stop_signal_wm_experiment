@@ -475,12 +475,12 @@ const getCurrBlockNum = () =>
 var getPhase2SSD = () => SSD;
 
 var getSSD = function (presentationData) {
-  if (presentationData.stimLength == 0) {
+  if (presentationData.stimLength === 0) {
     return SSD_0;
-  } else if (presentationData.stimLength == 4) {
+  } else if (presentationData.stimLength === 2) {
+    return SSD_2;
+  } else if (presentationData.stimLength === 4) {
     return SSD_4;
-  } else if (presentationData.stimLength == 6) {
-    return SSD_6;
   }
 };
 
@@ -550,17 +550,17 @@ var appendStopData = function (data, presentationData) {
       } else if (data.response != null && SSD_0 > minSSD) {
         SSD_0 -= 50;
       }
+    } else if (presentationData.stimLength === 2) {
+      if (data.response == null && SSD_2 < maxSSD) {
+        SSD_2 += 50;
+      } else if (data.response != null && SSD_2 > minSSD) {
+        SSD_2 -= 50;
+      }
     } else if (presentationData.stimLength === 4) {
       if (data.response == null && SSD_4 < maxSSD) {
         SSD_4 += 50;
       } else if (data.response != null && SSD_4 > minSSD) {
         SSD_4 -= 50;
-      }
-    } else if (presentationData.stimLength === 6) {
-      if (data.response == null && SSD_6 < maxSSD) {
-        SSD_6 += 50;
-      } else if (data.response != null && SSD_6 > minSSD) {
-        SSD_6 -= 50;
       }
     }
   } else {
@@ -692,8 +692,8 @@ var letterRtThresh = 1250;
 
 var SSD = 250;
 var SSD_0 = 250;
+var SSD_2 = 250;
 var SSD_4 = 250;
-var SSD_6 = 250;
 
 var maxSSD = 1000;
 var minSSD = 0;
@@ -716,9 +716,9 @@ var possibleConditions = ['in memory set', 'not in memory set'];
 
 /* Image paths */ 
 // local 
-// var pathSource = '/static/experiments/stop_signal_wm_task/images/';
+var pathSource = '/static/experiments/stop_signal_wm_task/images/';
 // expfactory deploy
-var pathSource = '/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/';
+// var pathSource = '/deployment/repo/stop_signal_wm_experiment/ad17d3ae41c163fc0fa6889becd5e74a04d76f73/stop_signal_wm_task/images/';
 var postFileType = ".png'></img>";
 var preFileType = "<img class = center src='" + pathSource;
 // append to images array to preload
